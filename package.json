@@ -13,6 +13,7 @@
     "@types/node": "^20.12.7",
     "@vercel/node": "^3.0.27",
     "@vercel/postgres": "^0.8.0",
+    "js-sha3": "^0.9.3",
     "typescript": "^5.4.5"
   }
 }
