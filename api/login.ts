@@ -41,6 +41,12 @@ import { sha3_512 } from 'js-sha3';
 const sessions = new Map();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+    
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+
   if (req.method === 'POST') {
     const { username, password } = req.body;
 
