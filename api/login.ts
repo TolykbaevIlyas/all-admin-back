@@ -1,3 +1,39 @@
+
+/**
+ * @swagger
+ * tags:
+ *   name: Authentication
+ *   description: Endpoints for user authentication
+ */
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Authenticate user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *             required:
+ *               - username
+ *               - password
+ *     responses:
+ *       '200':
+ *         description: Authentication successful
+ *       '401':
+ *         description: Invalid username or password
+ *       '405':
+ *         description: Method not allowed
+ */
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { sql } from '@vercel/postgres';
 import { sha3_512 } from 'js-sha3';

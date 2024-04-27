@@ -14,6 +14,7 @@
     "@vercel/node": "^3.0.27",
     "@vercel/postgres": "^0.8.0",
     "js-sha3": "^0.9.3",
+    "swagger-jsdoc": "^6.2.8",
     "typescript": "^5.4.5"
   }
 }
