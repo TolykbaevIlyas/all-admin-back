@@ -56,7 +56,7 @@ const allowCors = fn => async (req, res) => {
 }
 
 const sessions = new Map();
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+async function handler(req, res) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
     try {

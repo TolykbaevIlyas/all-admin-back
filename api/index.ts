@@ -23,7 +23,7 @@ const allowCors = fn => async (req, res) => {
 
 function handler(req, res) {
   return res.json({
-    message: `${req.method}`,
+    message: `Hello world!`,
   })
 }
 
