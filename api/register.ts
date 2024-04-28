@@ -2,7 +2,22 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import { sql } from '@vercel/postgres';
 import { sha3_512 } from 'js-sha3';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+const allowCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+  return await fn(req, res)
+}
+
+async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Метод не разрешен' });
   }
@@ -30,4 +45,6 @@ function hashPassword(username, password, maxLength = 100) {
     const combinedString = `${username}:${password}`;
     const hashedPassword = sha3_512(combinedString);
     return hashedPassword.substring(0, maxLength);
-  }
+}
+
+module.exports = allowCors(handler)
