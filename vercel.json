@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "src": "./api/login.ts",
-      "dest": "./api/index.ts",
+      "src": "/api/login",
+      "dest": "./api/login.ts",
       "methods": ["POST"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
