@@ -39,11 +39,10 @@ import { sql } from '@vercel/postgres';
 import { sha3_512 } from 'js-sha3';
 
 const sessions = new Map();
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  allowCors({req,res});
   if (req.method === 'POST') {
     const { username, password } = req.body;
-
     try {
       const hashedPassword = hashPassword(username, password);
       const userQuery = await sql`SELECT * FROM users WHERE username = ${username} AND password_hash = ${hashedPassword}`;
@@ -51,13 +50,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (userQuery.rows.length === 1) {
         const sessionId = generateSessionId();
         sessions.set(sessionId, username);
-        res.setHeader('Access-Control-Allow-Credentials', 'true')
-        res.setHeader('Access-Control-Allow-Origin', '*')
-        res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-        res.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-      )
         res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Secure; SameSite=Strict`);
 
         res.status(200).json({ message: 'Авторизация успешна' });
