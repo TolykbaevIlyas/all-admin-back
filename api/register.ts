@@ -3,7 +3,6 @@ import { sql } from '@vercel/postgres';
 import { sha3_512 } from 'js-sha3';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  allowCors({req,res});
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Метод не разрешен' });
   }

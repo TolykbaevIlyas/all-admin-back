@@ -40,7 +40,6 @@ import { sha3_512 } from 'js-sha3';
 
 const sessions = new Map();
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  allowCors({req,res});
   if (req.method === 'POST') {
     const { username, password } = req.body;
     try {
