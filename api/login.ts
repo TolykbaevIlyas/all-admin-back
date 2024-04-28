@@ -58,7 +58,6 @@ const allowCors = fn => async (req, res) => {
 // const sessions = new Map();
 async function handler(req, res) {
   if (req.method === 'POST') {
-    return res.json({message: "Hello"})
     const { username, password } = req.body;
     try {
       const hashedPassword = hashPassword(username, password);
