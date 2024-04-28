@@ -3,8 +3,6 @@ import type { VercelRequest, VercelResponse } from '@vercel/node'
 const allowCors = fn => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
-  // another common pattern
-  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
   res.setHeader(
     'Access-Control-Allow-Headers',
@@ -17,15 +15,16 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-const handler = (req, res) => {
-  const d = new Date()
-  res.end(d.toString())
+// const handler = (req, res) => {
+//   const d = new Date()
+//   res.end("Hello world")
+// }
+
+
+function handler(req, res) {
+  return res.json({
+    message: `${req.method}`,
+  })
 }
 
 module.exports = allowCors(handler)
-
-// export default function handler(req: VercelRequest, res: VercelResponse) {
-//   return res.json({
-//     message: `${req.method}`,
-//   })
-// }
