@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/api/login",
-      "dest": "./api/login.ts",
+      "dest": "/api/login.ts",
       "methods": ["POST"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
@@ -17,7 +17,7 @@
     },
     {
       "src": "/api/docs",
-      "dest": "./api/docs.ts",
+      "dest": "/api/docs.ts",
       "methods": ["GET"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
@@ -25,7 +25,7 @@
     },
     {
       "src": "/api/(.*)",
-      "dest": "./api",
+      "dest": "/api",
       "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
       "headers": {
         "Access-Control-Allow-Origin": "*"
