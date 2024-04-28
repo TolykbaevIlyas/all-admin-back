@@ -68,16 +68,16 @@ async function handler(req, res) {
         // sessions.set(sessionId, username);
         //res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Secure; SameSite=Strict`);
 
-        res.status(200).json({ message: 'Авторизация успешна' });
+        return res.status(200).json({ message: 'Авторизация успешна' });
       } else {
-        res.status(401).json({ error: 'Неверные имя пользователя или пароль' });
+        return res.status(401).json({ error: 'Неверные имя пользователя или пароль' });
       }
     } catch (error) {
       console.error('Ошибка при попытке авторизации:', error);
-      res.status(500).json({ error: 'Что-то пошло не так' });
+      return res.status(500).json({ error: 'Что-то пошло не так' });
     }
   } else {
-    res.status(405).json({ error: 'Метод не разрешен' });
+    return res.status(405).json({ error: 'Метод не разрешен' });
   }
 }
 
