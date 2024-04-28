@@ -1,9 +1,10 @@
 { 
     "version": 2, 
-    "rewrites": [
-        { 
-            "source": "/(.*)", 
-            "destination": "/api",
+    "routes":[
+        {
+            "src": "/(.*)",
+            "dest": "/api",
+            "method": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
             "headers": {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
