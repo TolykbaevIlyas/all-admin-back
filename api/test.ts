@@ -18,7 +18,7 @@ const allowCors = fn => async (req, res) => {
 function handler(req, res) {
     if (req.method === 'POST') {
         const { username, password } = req.body;
-        return res.json({
+        return res.send({
             message: `nameuser:${username} pass:${password}`,
           })
     }
