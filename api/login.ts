@@ -55,7 +55,7 @@ const allowCors = fn => async (req, res) => {
   return await fn(req, res)
 }
 
-const sessions = new Map();
+// const sessions = new Map();
 async function handler(req, res) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
@@ -64,9 +64,9 @@ async function handler(req, res) {
       const userQuery = await sql`SELECT * FROM users WHERE username = ${username} AND password_hash = ${hashedPassword}`;
 
       if (userQuery.rows.length === 1) {
-        const sessionId = generateSessionId();
-        sessions.set(sessionId, username);
-        res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Secure; SameSite=Strict`);
+        // const sessionId = generateSessionId();
+        // sessions.set(sessionId, username);
+        //res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Secure; SameSite=Strict`);
 
         res.status(200).json({ message: 'Авторизация успешна' });
       } else {
