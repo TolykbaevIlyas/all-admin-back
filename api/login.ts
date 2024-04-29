@@ -25,10 +25,19 @@ async function handler(req: VercelRequest, res: VercelResponse) {
     const { username, password } = req.body;
     try {
       const hashedPassword = hashPassword(username, password);
-      const userQuery = await sql`SELECT * FROM users WHERE username = ${username} AND password_hash = ${hashedPassword}`;
+      const userQuery = await sql`SELECT user_id FROM users WHERE username = ${username} AND password_hash = ${hashedPassword}`;
 
       if (userQuery.rows.length === 1) {
         const sessionId = generateSessionId();
+        const userId = userQuery.rows[0].user_id;
+        const expiryTime = new Date(Date.now() + (24 * 60 * 60 * 1000)).toISOString();
+        const sessionKey = sessionId;
+
+        await sql`
+        INSERT INTO user_sessions (user_id, session_key, expiry_time)
+        VALUES (${userId}, ${sessionKey}, ${expiryTime})
+        `;
+
         sessions.set(sessionId, username);
         res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Secure; SameSite=Strict`);
 
